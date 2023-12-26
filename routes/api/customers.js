@@ -241,18 +241,16 @@ router.post('/perform-health-check', auth, async (req, res) => {
 				companyName: customer.name,
 				scriptIncludeList: comparedResultForSi.scriptChangeAts,
 				clientScriptList: comparedResultForCs.scriptChangeAts,
-				businessRuleList: comparedResultForSi.scriptChangeAts,
+				businessRuleList: comparedResultForBr.scriptChangeAts,
 			});
 
 			await finalComparedResult.save();
 
 			return res.json(finalComparedResult);
 		} else {
-			return res
-				.status(400)
-				.json({
-					msg: 'App with given name and release version does not exist',
-				});
+			return res.status(400).json({
+				msg: 'App with given name and release version does not exist',
+			});
 		}
 	} catch (err) {
 		console.error(err.message);
