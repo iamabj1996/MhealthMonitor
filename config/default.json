@@ -1,0 +1,4 @@
+{
+	"mongoURI": "mongodb+srv://abraham:Gameisover123@healthmonitor.kcnwmca.mongodb.net/?retryWrites=true&w=majority",
+	"jwtSecret": "Kannampuzha"
+}
