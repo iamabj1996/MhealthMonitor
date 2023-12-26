@@ -1,10 +1,18 @@
 const express = require('express');
+const cors = require('cors');
 const connectDB = require('./config/db');
 
 const app = express();
 
 //Connect Database
 connectDB();
+
+//adding cors rule
+app.use(
+	cors({
+		origin: '*',
+	})
+);
 
 //Initialize middleware
 app.use(express.json({ extended: false, limit: '50mb' }));
