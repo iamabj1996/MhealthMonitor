@@ -5,6 +5,7 @@ const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
 
 const ApplicationData = require('../../models/ApplicationData');
+const CompareResultData = require('../../models/CompareResultData');
 
 function ignoringSpaces(code) {
 	const codeWithoutSpaces = code.replace(/\s/g, ''); // Remove spaces
@@ -103,5 +104,34 @@ router.post('/add-app-data', auth, async (req, res) => {
 		res.status(500).json({ msg: 'Server Error' });
 	}
 });
+
+// @route GET api/owner/get-app-release-company/:companyName/:releaseLabel/:appName
+// @desc Get data from DB (companyName | ReleaseLabel | AppName)
+// @access Private (only admin)
+router.get(
+	'/get-app-release-company/:companyName/:releaseLabel/:appName',
+	auth,
+	async (req, res) => {
+		if (!req.customer.isAdmin) {
+			return res.json({ msg: 'Not Authorized' });
+		}
+		const { companyName, releaseLabel, appName } = req.params;
+		try {
+			//checking if compare result exist with given appName & releaseLabel & companyName
+			let comparedResultData = await CompareResultData.find({
+				appName,
+				releaseLabel,
+				companyName,
+			});
+
+			console.log('comparedResultData', comparedResultData);
+
+			res.json(comparedResultData);
+		} catch (err) {
+			console.error(err.message);
+			res.status(500).json({ msg: 'Server Error' });
+		}
+	}
+);
 
 module.exports = router;
