@@ -55,7 +55,7 @@ function compareArrays(arr1, arr2) {
 			if (arr1[i].script !== arr2[i].script) {
 				console.log('change in the script for sysId with', arr1[i].sysId);
 				scriptChangeAt.push(arr1[i].sysId);
-				nameChange.push(arr1[i].name);
+				nameChange.push(arr2[i].name);
 			}
 			scriptChangeAts = scriptChangeAt;
 			nameChanges = nameChange;
