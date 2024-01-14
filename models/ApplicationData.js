@@ -7,6 +7,9 @@ const CodeSchema = new mongoose.Schema({
 	script: {
 		type: String,
 	},
+	name: {
+		type: String,
+	},
 });
 
 const ApplicationDataSchema = new mongoose.Schema({

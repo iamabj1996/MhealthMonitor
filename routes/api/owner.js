@@ -39,6 +39,7 @@ router.post('/add-app-data', auth, async (req, res) => {
 			let newData = {
 				sysId: data.sysId,
 				script: SHA256(removeSpaceFromCode).toString(),
+				name: data.name,
 			};
 			finalEncryptedSI.push(newData);
 		});
@@ -53,6 +54,7 @@ router.post('/add-app-data', auth, async (req, res) => {
 			let newData = {
 				sysId: data.sysId,
 				script: SHA256(removeSpaceFromCode).toString(),
+				name: data.name,
 			};
 			finalEncryptedCS.push(newData);
 		});
@@ -66,6 +68,7 @@ router.post('/add-app-data', auth, async (req, res) => {
 			let newData = {
 				sysId: data.sysId,
 				script: SHA256(removeSpaceFromCode).toString(),
+				name: data.name,
 			};
 			finalEncryptedBR.push(newData);
 		});

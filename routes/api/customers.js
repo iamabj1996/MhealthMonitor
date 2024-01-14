@@ -11,6 +11,7 @@ const Customer = require('../../models/Customer');
 const ApplicationData = require('../../models/ApplicationData');
 const CompareResultData = require('../../models/CompareResultData');
 
+//Logic for ignoring spaces
 function ignoringSpaces(code) {
 	const codeWithoutSpaces = code.replace(/\s/g, ''); // Remove spaces
 	return codeWithoutSpaces;
