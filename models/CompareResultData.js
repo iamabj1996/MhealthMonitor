@@ -19,6 +19,15 @@ const CompareResultDataScehma = new mongoose.Schema({
 	businessRuleList: {
 		type: [String],
 	},
+	scriptIncludeName: {
+		type: [String],
+	},
+	clientScriptName: {
+		type: [String],
+	},
+	businessRuleName: {
+		type: [String],
+	},
 	date: {
 		type: Date,
 		default: Date.now,

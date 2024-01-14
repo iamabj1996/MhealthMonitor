@@ -23,6 +23,7 @@ function compareArrays(arr1, arr2) {
 	let totalRecordsMessage;
 	let sysIdChanges;
 	let scriptChangeAts;
+	let nameChanges;
 
 	// console.log('arr1', arr1);
 	// console.log('arr2', arr2);
@@ -41,6 +42,7 @@ function compareArrays(arr1, arr2) {
 		// comparing each element of array
 		let sysIdChange = [];
 		let scriptChangeAt = [];
+		let nameChange = [];
 		for (let i = 0; i < arr1.length; i++) {
 			// console.log('this ran 3', JSON.parse(arr1[i]).sysId);
 			// console.log('objects', arr1[i].sysId);
@@ -53,8 +55,10 @@ function compareArrays(arr1, arr2) {
 			if (arr1[i].script !== arr2[i].script) {
 				console.log('change in the script for sysId with', arr1[i].sysId);
 				scriptChangeAt.push(arr1[i].sysId);
+				nameChange.push(arr1[i].name);
 			}
 			scriptChangeAts = scriptChangeAt;
+			nameChanges = nameChange;
 		}
 	}
 	return {
@@ -62,6 +66,7 @@ function compareArrays(arr1, arr2) {
 		totalRecordsMessage,
 		sysIdChanges,
 		scriptChangeAts,
+		nameChanges,
 	};
 }
 
@@ -243,6 +248,9 @@ router.post('/perform-health-check', auth, async (req, res) => {
 				scriptIncludeList: comparedResultForSi.scriptChangeAts,
 				clientScriptList: comparedResultForCs.scriptChangeAts,
 				businessRuleList: comparedResultForBr.scriptChangeAts,
+				scriptIncludeName: comparedResultForSi.nameChanges,
+				clientScriptName: comparedResultForCs.nameChanges,
+				businessRuleName: comparedResultForBr.nameChanges,
 			});
 
 			await finalComparedResult.save();
