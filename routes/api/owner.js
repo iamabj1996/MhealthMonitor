@@ -119,7 +119,6 @@ router.get(
 			return res.json({ msg: 'Not Authorized' });
 		}
 		const { companyName, releaseLabel, appName } = req.params;
-		let totalCount = {};
 		try {
 			//checking if compare result exist with given appName & releaseLabel & companyName
 			let comparedResultData = await CompareResultData.find({
@@ -128,26 +127,9 @@ router.get(
 				companyName,
 			});
 
-			let applicationData = await ApplicationData.findOne({
-				appName,
-				releaseLabel,
-			});
-
-			if (applicationData) {
-				const { scriptIncludeList, businessRuleList, clientScriptList } =
-					applicationData;
-				totalCount.totalSi = scriptIncludeList.length;
-				totalCount.totalBi = businessRuleList.length;
-				totalCount.totalCs = clientScriptList.length;
-			} else {
-				return res.status(400).json({
-					msg: 'App with given name and release version does not exist',
-				});
-			}
-
 			console.log('comparedResultData', comparedResultData);
 
-			res.json({ comparedResultData, totalCount });
+			res.json(comparedResultData);
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).json({ msg: 'Server Error' });
