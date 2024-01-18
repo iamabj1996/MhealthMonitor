@@ -137,4 +137,38 @@ router.get(
 	}
 );
 
+// @route GET api/owner/get-totalScript-application-release/:releaseLabel/:appName
+// @desc Get data from DB (ReleaseLabel | AppName)
+// @access Private (only admin)
+router.get(
+	'/get-totalScript-application-release/:releaseLabel/:appName',
+	auth,
+	async (req, res) => {
+		if (!req.customer.isAdmin) {
+			return res.json({ msg: 'Not Authorized' });
+		}
+		const { releaseLabel, appName } = req.params;
+
+		try {
+			//get totalCount of scripts
+			let applicationData = await ApplicationData.findOne({
+				appName,
+				releaseLabel,
+			});
+			if (applicationData) {
+				const { scriptIncludeList, businessRuleList, clientScriptList } =
+					applicationData;
+				return res.json({
+					totalSi: scriptIncludeList.length,
+					totalBr: businessRuleList.length,
+					totalCs: clientScriptList.length,
+				});
+			}
+		} catch (err) {
+			console.error(err.message);
+			res.status(500).json({ msg: 'Server Error' });
+		}
+	}
+);
+
 module.exports = router;
